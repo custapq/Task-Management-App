@@ -1,11 +1,15 @@
-FROM node:18-lts
+FROM node:20-alpine
 
-# Set the working directory
-WORKDIR /usr/src/app
+WORKDIR /app
 
-COPY . .
+COPY package*.json ./
 
 RUN npm install
 
-CMD ["npm", "start:dev"]
+COPY . .
 
+RUN npm run build
+
+EXPOSE 3000
+
+CMD ["npm", "run", "start:prod"]
